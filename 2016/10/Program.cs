@@ -14,10 +14,10 @@ foreach (var line in lines)
 
 		if (!nodes.ContainsKey(id))
 		{
-			nodes[id] = new Node { id = id, values = new List<int>(), outLow = string.Empty, outHigh = string.Empty };
+			nodes[id] = new Node { Id = id, Values = new List<int>(), OutLow = string.Empty, OutHigh = string.Empty };
 		}
 
-		nodes[id].values.Add(int.Parse(parts[1]));
+		nodes[id].Values.Add(int.Parse(parts[1]));
 	}
 	else
 	{
@@ -25,11 +25,11 @@ foreach (var line in lines)
 
 		if (!nodes.ContainsKey(id))
 		{
-			nodes[id] = new Node { id = id, values = new List<int>(), outLow = string.Empty, outHigh = string.Empty };
+			nodes[id] = new Node { Id = id, Values = new List<int>(), OutLow = string.Empty, OutHigh = string.Empty };
 		}
 
-		nodes[id].outLow = parts[6];
-		nodes[id].outHigh = parts[11];
+		nodes[id].OutLow = parts[6];
+		nodes[id].OutHigh = parts[11];
 	}
 }
 
@@ -38,20 +38,20 @@ while (!isDone)
 {
 	foreach (var node in nodes.Values)
 	{
-		if (node.values.Count == 2 &&
-			node.outHigh != null)
+		if (node.Values.Count == 2 &&
+			node.OutHigh != null)
 		{
-			var min = node.values.Min();
-			var max = node.values.Max();
+			var min = node.Values.Min();
+			var max = node.Values.Max();
 
-			nodes[node.outLow].values.Add(min);
-			nodes[node.outHigh].values.Add(max);
+			nodes[node.OutLow].Values.Add(min);
+			nodes[node.OutHigh].Values.Add(max);
 
-			node.values.Clear();
+			node.Values.Clear();
 
 			if (min == 17 && max == 61)
 			{
-				Console.WriteLine(node.id);
+				Console.WriteLine(node.Id);
 				isDone = true;
 				break;
 			}
@@ -72,10 +72,10 @@ foreach (var line in lines)
 
 		if (!nodes.ContainsKey(id))
 		{
-			nodes[id] = new Node { id = id, values = new List<int>(), outLow = string.Empty, outHigh = string.Empty };
+			nodes[id] = new Node { Id = id, Values = new List<int>(), OutLow = string.Empty, OutHigh = string.Empty };
 		}
 
-		nodes[id].values.Add(int.Parse(parts[1]));
+		nodes[id].Values.Add(int.Parse(parts[1]));
 	}
 	else
 	{
@@ -83,31 +83,31 @@ foreach (var line in lines)
 
 		if (!nodes.ContainsKey(id))
 		{
-			nodes[id] = new Node { id = id, values = new List<int>(), outLow = string.Empty, outHigh = string.Empty };
+			nodes[id] = new Node { Id = id, Values = new List<int>(), OutLow = string.Empty, OutHigh = string.Empty };
 		}
 
 		var lowId = parts[5] + " " + parts[6];
 		if (!nodes.ContainsKey(lowId))
 		{
-			nodes[lowId] = new Node { id = lowId, values = new List<int>(), outLow = string.Empty, outHigh = string.Empty };
+			nodes[lowId] = new Node { Id = lowId, Values = new List<int>(), OutLow = string.Empty, OutHigh = string.Empty };
 		}
-		nodes[id].outLow = lowId;
+		nodes[id].OutLow = lowId;
 
 		var highId = parts[10] + " " + parts[11];
 		if (!nodes.ContainsKey(highId))
 		{
-			nodes[highId] = new Node { id = highId, values = new List<int>(), outLow = string.Empty, outHigh = string.Empty };
+			nodes[highId] = new Node { Id = highId, Values = new List<int>(), OutLow = string.Empty, OutHigh = string.Empty };
 		}
-		nodes[id].outHigh = highId;
+		nodes[id].OutHigh = highId;
 
 	}
 }
 
 var machines = Execute(nodes).Last().machine;
 
-var result = machines["output 0"].values.Single() *
-	machines["output 1"].values.Single() *
-	machines["output 2"].values.Single();
+var result = machines["output 0"].Values.Single() *
+	machines["output 1"].Values.Single() *
+	machines["output 2"].Values.Single();
 
 Console.WriteLine(result);
 
@@ -120,19 +120,19 @@ IEnumerable<(Dictionary<string, Node> machine, string id, int min, int max)> Exe
 		any = false;
 		foreach (var node in machine.Values)
 		{
-			if (node.values.Count == 2 && node.outHigh != null)
+			if (node.Values.Count == 2 && node.OutHigh != null)
 			{
 				any = true;
 
-				var min = node.values.Min();
-				var max = node.values.Max();
+				var min = node.Values.Min();
+				var max = node.Values.Max();
 
-				machine[node.outLow].values.Add(min);
-				machine[node.outHigh].values.Add(max);
+				machine[node.OutLow].Values.Add(min);
+				machine[node.OutHigh].Values.Add(max);
 
-				node.values.Clear();
+				node.Values.Clear();
 
-				yield return (machine, node.id, min, max);
+				yield return (machine, node.Id, min, max);
 			}
 		}
 	}
