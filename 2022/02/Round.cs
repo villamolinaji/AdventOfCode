@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RockPaperScissors
+﻿namespace RockPaperScissors
 {
-    public class Round
-    {
-        public string Elf { get; set; }
+	public class Round
+	{
+		required public string Elf { get; set; }
 
-        public string Me { get; set; }
-    }
+		required public string Me { get; set; }
+	}
 }

@@ -1,4 +1,4 @@
-﻿var lengths = File.ReadAllText("Input.txt")
+﻿var lengths = File.ReadAllTextAsync("Input.txt").Result
 	.Split(',')
 	.Select(int.Parse)
 	.ToArray();
@@ -35,7 +35,7 @@ var result = list[0] * list[1];
 Console.WriteLine(result);
 
 // Part 2
-var lengthsString = File.ReadAllText("Input.txt");
+var lengthsString = File.ReadAllTextAsync("Input.txt").Result;
 var lengths2 = new List<int>();
 
 foreach (var c in lengthsString)
