@@ -26,12 +26,8 @@ Console.WriteLine(result);
 
 long Evaluate(string expression, bool isPart2)
 {
-	var result = 0L;
-
 	var operationStack = new Stack<char>();
 	var valueStack = new Stack<long>();
-
-
 
 	operationStack.Push('(');
 
