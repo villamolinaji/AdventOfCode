@@ -1,7 +1,5 @@
 ﻿var input = File.ReadAllTextAsync("Input.txt").Result;
 
-
-
 Console.WriteLine(CalculateFished(80));
 
 //Part 2
